@@ -4,6 +4,16 @@ class BookStoreLib:
     def __init__(self):
         self.base_url = "https://demoqa.com/BookStore/v1"
 
+    # 공통 요청 메서드 (메서드를 인자로 받아 테스트 유연성 확보)
+    def send_book_request(self, method, endpoint, token=None, params=None, json=None):
+        url = f"{self.base_url}/{endpoint}"
+        headers = {}
+        if token:
+            headers["Authorization"] = f"Bearer {token}"
+        
+        response = requests.request(method, url, headers=headers, params=params, json=json)
+        return response
+        
     # 1. GET /Books - 전체 도서 조회
     def get_all_books(self):
         response = requests.get(f"{self.base_url}/Books")
