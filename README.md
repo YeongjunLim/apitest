@@ -48,15 +48,21 @@
 
 ## ⚙️ 실행 방법
 ### Prerequisites
-Bash`pip install robotframework robotframework-requests`
+```Bash
+pip install robotframework robotframework-requests
+```
 
 ### Configuration
 - config.py 파일에 DemoQA에서 가입한 계정 정보를 입력합니다.
-Python```userName = "your_id"
-password = "your_password123!"```
+```python
+userName = "your_id"
+password = "your_password123!"
+```
 
 - Run Tests
-Bash`robot tests/bookstore.robot`
+```bash
+robot tests/bookstore.robot
+```
 
 ## 💡 학습 및 해결 포인트
 - 401 Unauthorized: 토큰 누락 및 DemoQA의 Authorized 상태 활성화를 Suite Setup에서 해결.
