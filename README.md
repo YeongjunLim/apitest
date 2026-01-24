@@ -11,7 +11,7 @@
 | 구분 | 기술 | 
 | ---- | ---- |
 | Framework | Robot Framework |
-| Language | Python 3.x | 
+| Language | Python 3.9.13 | 
 | Library | Requests, Collections |
 | Target API | [DemoQA BookStore API](https://demoqa.com/swagger/#/) |
  
