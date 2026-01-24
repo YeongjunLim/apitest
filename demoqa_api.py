@@ -1,23 +1,46 @@
 import requests
 
-class BookStoreLib:
-    def __init__(self):
-        self.base_url = "https://demoqa.com/BookStore/v1"
-        self.headers = {'Content-Type': 'application/json'}
+# 기본 베이스 URL 설정
+BASE_URL = "https://demoqa.com"
 
-    def book_store_api(self, method, endpoint, body=None, token=None):
-        url = f"{self.base_url}/{endpoint}"
-        
-        # 헤더 설정
-        req_headers = self.headers.copy()
-        if token:
-            req_headers['Authorization'] = f'Bearer {token}'
+# --- [Account API] 인증 관련 함수 ---
 
-        # API 요청 (GET은 params로, 나머지는 json으로 처리하는 것이 안전함)
-        method = method.upper()
-        if method == "GET":
-            response = requests.get(url, params=body, headers=req_headers)
-        else:
-            response = requests.request(method, url, json=body, headers=req_headers)
+def generate_token(username, password):
+    """사용자 토큰 생성 (POST /Account/v1/GenerateToken)"""
+    url = f"{BASE_URL}/Account/v1/GenerateToken"
+    payload = {"userName": username, "password": password}
+    response = requests.post(url, json=payload)
+    return response
 
-        return response
+def check_authorized(username, password):
+    """현재 계정의 권한 유효성 확인 (POST /Account/v1/Authorized)"""
+    url = f"{BASE_URL}/Account/v1/Authorized"
+    payload = {"userName": username, "password": password}
+    response = requests.post(url, json=payload)
+    return response
+
+def login_user(username, password):
+    """로그인 수행 및 UserId/Token 획득 (POST /Account/v1/Login)"""
+    url = f"{BASE_URL}/Account/v1/Login"
+    payload = {"userName": username, "password": password}
+    response = requests.post(url, json=payload)
+    return response
+
+# --- [BookStore API] 도서 관리 함수 ---
+
+def book_store_api(method, endpoint, body=None, token=None):
+    """도서 관련 모든 API 처리 (Books, Book)"""
+    url = f"{BASE_URL}/BookStore/v1/{endpoint}"
+    headers = {'Content-Type': 'application/json'}
+    
+    if token:
+        headers['Authorization'] = f'Bearer {token}'
+
+    else:
+        print(f"⚠️ WARNING: No token provided for {method} {endpoint}")
+
+    method = method.upper()
+    if method == "GET":
+        return requests.get(url, params=body, headers=headers)
+    else:
+        return requests.request(method, url, json=body, headers=headers)
