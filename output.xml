@@ -1,0 +1,929 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.1 (Python 3.9.13 on linux)" generated="2026-01-24T08:08:29.873368" rpa="false" schemaversion="5">
+<suite id="s1" name="Apitest" source="/home/runner/work/apitest/apitest">
+<suite id="s1-s1" name="Tests" source="/home/runner/work/apitest/apitest/tests">
+<suite id="s1-s1-s1" name="Bookstore" source="/home/runner/work/apitest/apitest/tests/bookstore.robot">
+<kw name="Setup2" type="SETUP">
+<kw name="Login User" owner="demoqa_api">
+<msg time="2026-01-24T08:08:31.016582" level="INFO">${login_res} = &lt;Response [200]&gt;</msg>
+<var>${login_res}</var>
+<arg>${userName}</arg>
+<arg>${password}</arg>
+<doc>로그인 수행 및 UserId/Token 획득 (POST /Account/v1/Login)</doc>
+<status status="PASS" start="2026-01-24T08:08:29.959736" elapsed="1.056916"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:31.017639" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${login_res.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:31.016882" elapsed="0.000826"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-01-24T08:08:31.018447" level="INFO">${data} = {'userId': 'd6172cd3-6585-4365-8bb7-994120e66cf9', 'username': 'QALim', 'password': 'toolsQA!23', 'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlFBTGltIiwicGFzc3dvcmQiOiJ0b29sc1FBITI...</msg>
+<var>${data}</var>
+<arg>${login_res.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-01-24T08:08:31.017845" elapsed="0.000632"/>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<msg time="2026-01-24T08:08:31.019777" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlFBTGltIiwicGFzc3dvcmQiOiJ0b29sc1FBITIzIiwiaWF0IjoxNzY5MjM5MDM5fQ.a8xnxojClApaNGOGHH_XHX0BydbXjZNWkY2xgXQ5k10</msg>
+<arg>${token}</arg>
+<arg>${data['token']}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="PASS" start="2026-01-24T08:08:31.018593" elapsed="0.001253"/>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<msg time="2026-01-24T08:08:31.021029" level="INFO">${userId} = d6172cd3-6585-4365-8bb7-994120e66cf9</msg>
+<arg>${userId}</arg>
+<arg>${data['userId']}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="PASS" start="2026-01-24T08:08:31.019962" elapsed="0.001115"/>
+</kw>
+<kw name="Check Authorized" owner="demoqa_api">
+<msg time="2026-01-24T08:08:31.686396" level="INFO">${auth_res} = &lt;Response [200]&gt;</msg>
+<var>${auth_res}</var>
+<arg>${userName}</arg>
+<arg>${password}</arg>
+<doc>현재 계정의 권한 유효성 확인 (POST /Account/v1/Authorized)</doc>
+<status status="PASS" start="2026-01-24T08:08:31.021185" elapsed="0.665277"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n[SETUP] Is User Authorized? : ${auth_res.text}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-01-24T08:08:31.686686" elapsed="0.000821"/>
+</kw>
+<status status="PASS" start="2026-01-24T08:08:29.959210" elapsed="1.728412"/>
+</kw>
+<test id="s1-s1-s1-t1" name="API Suite Setup" line="12">
+<kw name="Generate Token" owner="demoqa_api">
+<msg time="2026-01-24T08:08:32.804566" level="INFO">${token_res} = &lt;Response [200]&gt;</msg>
+<var>${token_res}</var>
+<arg>${userName}</arg>
+<arg>${password}</arg>
+<doc>사용자 토큰 생성 (POST /Account/v1/GenerateToken)</doc>
+<status status="PASS" start="2026-01-24T08:08:31.688157" elapsed="1.116478"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:32.805631" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${token_res.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:32.804910" elapsed="0.000789"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-01-24T08:08:32.806441" level="INFO">${token_data} = {'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlFBTGltIiwicGFzc3dvcmQiOiJ0b29sc1FBITIzIiwiaWF0IjoxNzY5MjQyMTEyfQ.wEXaIH6PeJbbg0kdPrVmhwWNWGYjUYDYMVCnblCr2Rg', 'expires': '2026-01-31T...</msg>
+<var>${token_data}</var>
+<arg>${token_res.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-01-24T08:08:32.805841" elapsed="0.000629"/>
+</kw>
+<kw name="Login User" owner="demoqa_api">
+<msg time="2026-01-24T08:08:33.665359" level="INFO">${login_res} = &lt;Response [200]&gt;</msg>
+<var>${login_res}</var>
+<arg>${userName}</arg>
+<arg>${password}</arg>
+<doc>로그인 수행 및 UserId/Token 획득 (POST /Account/v1/Login)</doc>
+<status status="PASS" start="2026-01-24T08:08:32.806579" elapsed="0.858861"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-01-24T08:08:33.666489" level="INFO">${login_data} = {'userId': 'd6172cd3-6585-4365-8bb7-994120e66cf9', 'username': 'QALim', 'password': 'toolsQA!23', 'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlFBTGltIiwicGFzc3dvcmQiOiJ0b29sc1FBITI...</msg>
+<var>${login_data}</var>
+<arg>${login_res.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-01-24T08:08:33.665663" elapsed="0.000857"/>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<msg time="2026-01-24T08:08:33.667350" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlFBTGltIiwicGFzc3dvcmQiOiJ0b29sc1FBITIzIiwiaWF0IjoxNzY5MjQyMTEyfQ.wEXaIH6PeJbbg0kdPrVmhwWNWGYjUYDYMVCnblCr2Rg</msg>
+<arg>${token}</arg>
+<arg>${token_data['token']}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="PASS" start="2026-01-24T08:08:33.666641" elapsed="0.000758"/>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<msg time="2026-01-24T08:08:33.668182" level="INFO">${userId} = d6172cd3-6585-4365-8bb7-994120e66cf9</msg>
+<arg>${userId}</arg>
+<arg>${login_data['userId']}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="PASS" start="2026-01-24T08:08:33.667512" elapsed="0.000717"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\nGenerated Token: ${token}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-01-24T08:08:33.668338" elapsed="0.000317"/>
+</kw>
+<status status="PASS" start="2026-01-24T08:08:31.687730" elapsed="1.981131"/>
+</test>
+<test id="s1-s1-s1-t2" name="TC-01" line="25">
+<kw name="Check Authorized" owner="demoqa_api">
+<msg time="2026-01-24T08:08:34.487924" level="INFO">${res} = &lt;Response [200]&gt;</msg>
+<var>${res}</var>
+<arg>${userName}</arg>
+<arg>${password}</arg>
+<doc>현재 계정의 권한 유효성 확인 (POST /Account/v1/Authorized)</doc>
+<status status="PASS" start="2026-01-24T08:08:33.670495" elapsed="0.817502"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:34.488952" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:34.488217" elapsed="0.000803"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${res.text}</arg>
+<arg>true</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-01-24T08:08:34.489130" elapsed="0.000602"/>
+</kw>
+<doc>현재 로그인된 사용자의 권한이 유효한지(Authorized) 확인합니다.
+결과값으로 문자열 'true'가 반환되어야 합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:33.669124" elapsed="0.820768"/>
+</test>
+<test id="s1-s1-s1-t3" name="TC-02" line="32">
+<kw name="Generate Token" owner="demoqa_api">
+<msg time="2026-01-24T08:08:35.559064" level="INFO">${res} = &lt;Response [200]&gt;</msg>
+<var>${res}</var>
+<arg>${userName}</arg>
+<arg>${password}</arg>
+<doc>사용자 토큰 생성 (POST /Account/v1/GenerateToken)</doc>
+<status status="PASS" start="2026-01-24T08:08:34.491305" elapsed="1.067826"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:35.560147" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:35.559404" elapsed="0.000810"/>
+</kw>
+<kw name="Dictionary Should Contain Key" owner="Collections">
+<arg>${res.json()}</arg>
+<arg>token</arg>
+<doc>Fails if ``key`` is not found from ``dictionary``.</doc>
+<status status="PASS" start="2026-01-24T08:08:35.560327" elapsed="0.000518"/>
+</kw>
+<doc>GenerateToken 엔드포인트를 호출하여 인증 토큰이 정상적으로 생성되는지 확인합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:34.490152" elapsed="1.070838"/>
+</test>
+<test id="s1-s1-s1-t4" name="TC-03" line="38">
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:35.998623" level="INFO">⚠️ WARNING: No token provided for GET Books</msg>
+<msg time="2026-01-24T08:08:35.998869" level="INFO">${res} = &lt;Response [200]&gt;</msg>
+<var>${res}</var>
+<arg>GET</arg>
+<arg>Books</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:35.562352" elapsed="0.436565"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:35.999876" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:35.999131" elapsed="0.000812"/>
+</kw>
+<doc>BookStore에 등록된 모든 도서 목록을 조회하고 성공 응답(200)을 확인합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:35.561254" elapsed="0.438829"/>
+</test>
+<test id="s1-s1-s1-t5" name="TC-04" line="43">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:36.002495" level="INFO">${body} = {'userId': 'd6172cd3-6585-4365-8bb7-994120e66cf9', 'collectionOfIsbns': "{[{'isbn': '9781449325862'}]}"}</msg>
+<var>${body}</var>
+<arg>userId=${userId}</arg>
+<arg>collectionOfIsbns={[{'isbn': '${VALID_ISBN}'}]}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:36.001916" elapsed="0.000608"/>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:36.626126" level="INFO">${res} = &lt;Response [401]&gt;</msg>
+<var>${res}</var>
+<arg>POST</arg>
+<arg>Books</arg>
+<arg>body=${body}</arg>
+<arg>token=${token}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:36.002637" elapsed="0.623548"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${res.status_code} == 201 or ${res.status_code}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-01-24T08:08:36.626398" elapsed="0.001488"/>
+</kw>
+<doc>인증 토큰을 사용하여 특정 ISBN의 도서를 내 컬렉션에 추가합니다.
+이미 추가된 경우(400)도 정상 시나리오로 간주합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:36.000334" elapsed="0.627698"/>
+</test>
+<test id="s1-s1-s1-t6" name="TC-05" line="50">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:36.630146" level="INFO">${params} = {'ISBN': '9781449325862'}</msg>
+<var>${params}</var>
+<arg>ISBN=${VALID_ISBN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:36.629716" elapsed="0.000458"/>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:37.067391" level="INFO">⚠️ WARNING: No token provided for GET Book</msg>
+<msg time="2026-01-24T08:08:37.067612" level="INFO">${res} = &lt;Response [200]&gt;</msg>
+<var>${res}</var>
+<arg>GET</arg>
+<arg>Book</arg>
+<arg>body=${params}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:36.630282" elapsed="0.437368"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:37.068785" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:37.067938" elapsed="0.000937"/>
+</kw>
+<doc>특정 ISBN을 쿼리 파라미터로 전달하여 도서의 상세 정보를 정상적으로 가져오는지 확인합니다.T</doc>
+<status status="PASS" start="2026-01-24T08:08:36.628298" elapsed="0.440731"/>
+</test>
+<test id="s1-s1-s1-t7" name="TC-06" line="56">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-01-24T08:08:37.070796" level="INFO">${NEW_ISBN} = 9781449331818</msg>
+<var>${NEW_ISBN}</var>
+<arg>9781449331818</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-01-24T08:08:37.070486" elapsed="0.000359"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:37.071399" level="INFO">${body} = {'userId': 'd6172cd3-6585-4365-8bb7-994120e66cf9', 'isbn': '9781449331818'}</msg>
+<var>${body}</var>
+<arg>userId=${userId}</arg>
+<arg>isbn=${NEW_ISBN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:37.070970" elapsed="0.000462"/>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:37.606212" level="INFO">${res} = &lt;Response [401]&gt;</msg>
+<var>${res}</var>
+<arg>PUT</arg>
+<arg>Books/${VALID_ISBN}</arg>
+<arg>body=${body}</arg>
+<arg>token=${token}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:37.071540" elapsed="0.534731"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\nTC-06 Response: ${res.text}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-01-24T08:08:37.606480" elapsed="0.000814"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:37.608120" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<msg time="2026-01-24T08:08:37.608250" level="FAIL">401 != 200</msg>
+<arg>${res.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="FAIL" start="2026-01-24T08:08:37.607453" elapsed="0.000883">401 != 200</status>
+</kw>
+<doc>기존에 내 서재에 있던 도서를 새로운 ISBN의 도서로 교체(업데이트)합니다.</doc>
+<status status="FAIL" start="2026-01-24T08:08:37.069313" elapsed="0.539219">401 != 200</status>
+</test>
+<test id="s1-s1-s1-t8" name="TC-07" line="64">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:37.610841" level="FAIL">Variable '${NEW_ISBN}' not found.</msg>
+<var>${body}</var>
+<arg>isbn=${NEW_ISBN}</arg>
+<arg>userId=${userId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="FAIL" start="2026-01-24T08:08:37.610004" elapsed="0.000879">Variable '${NEW_ISBN}' not found.</status>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<var>${res}</var>
+<arg>DELETE</arg>
+<arg>Book</arg>
+<arg>body=${body}</arg>
+<arg>token=${token}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="NOT RUN" start="2026-01-24T08:08:37.611014" elapsed="0.000022"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${res.status_code}</arg>
+<arg>204</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2026-01-24T08:08:37.611136" elapsed="0.000020"/>
+</kw>
+<doc>내 서재(Collection)에서 특정 도서 한 권만 지정하여 삭제하고 204(No Content) 응답을 확인합니다.</doc>
+<status status="FAIL" start="2026-01-24T08:08:37.608832" elapsed="0.002470">Variable '${NEW_ISBN}' not found.</status>
+</test>
+<test id="s1-s1-s1-t9" name="TC-08" line="70">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:37.615877" level="FAIL">Resolving variable '${[{'isbn': '9781449325862'}]}' failed: Variable '${[}' not found.</msg>
+<var>${body}</var>
+<arg>userId=${userId}</arg>
+<arg>collectionOfIsbns=${[{'isbn': '${VALID_ISBN}'}]}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="FAIL" start="2026-01-24T08:08:37.612839" elapsed="0.003079">Resolving variable '${[{'isbn': '9781449325862'}]}' failed: Variable '${[}' not found.</status>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<var>${res}</var>
+<arg>POST</arg>
+<arg>Books</arg>
+<arg>body=${body}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="NOT RUN" start="2026-01-24T08:08:37.616042" elapsed="0.000023"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${res.status_code}</arg>
+<arg>401</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2026-01-24T08:08:37.616167" elapsed="0.000020"/>
+</kw>
+<doc>인증 토큰(Bearer Token)을 누락하고 도서 추가를 시도하여 401 Unauthorized 에러가 발생하는지 검증합니다.</doc>
+<status status="FAIL" start="2026-01-24T08:08:37.611604" elapsed="0.004715">Resolving variable '${[{'isbn': '9781449325862'}]}' failed: Variable '${[}' not found.</status>
+</test>
+<test id="s1-s1-s1-t10" name="TC-09" line="76">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:37.618228" level="INFO">${params} = {'ISBN': 'INVALID123'}</msg>
+<var>${params}</var>
+<arg>ISBN=INVALID123</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:37.617909" elapsed="0.000346"/>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:38.056006" level="INFO">⚠️ WARNING: No token provided for GET Book</msg>
+<msg time="2026-01-24T08:08:38.056198" level="INFO">${res} = &lt;Response [400]&gt;</msg>
+<var>${res}</var>
+<arg>GET</arg>
+<arg>Book</arg>
+<arg>body=${params}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:37.618361" elapsed="0.437869"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:38.057187" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>400</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:38.056437" elapsed="0.000817"/>
+</kw>
+<doc>존재하지 않는 잘못된 ISBN 번호를 조회했을 때 서버가 400 Bad Request 에러를 반환하는지 확인합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:37.616584" elapsed="0.440813"/>
+</test>
+<test id="s1-s1-s1-t11" name="TC-10" line="82">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:38.059384" level="INFO">${params} = {'UserId': 'd6172cd3-6585-4365-8bb7-994120e66cf9'}</msg>
+<var>${params}</var>
+<arg>UserId=${userId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:38.058988" elapsed="0.000424"/>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:38.514478" level="INFO">${res} = &lt;Response [401]&gt;</msg>
+<var>${res}</var>
+<arg>DELETE</arg>
+<arg>Books</arg>
+<arg>body=${params}</arg>
+<arg>token=${token}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:38.059519" elapsed="0.455026"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:38.515518" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<msg time="2026-01-24T08:08:38.515629" level="FAIL">401 != 204</msg>
+<arg>${res.status_code}</arg>
+<arg>204</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="FAIL" start="2026-01-24T08:08:38.514772" elapsed="0.000928">401 != 204</status>
+</kw>
+<doc>테스트가 끝난 후 다음 테스트 실행 환경을 위해 사용자의 컬렉션을 완전히 비웁니다.</doc>
+<status status="FAIL" start="2026-01-24T08:08:38.057662" elapsed="0.458235">401 != 204</status>
+</test>
+<status status="FAIL" start="2026-01-24T08:08:29.905231" elapsed="8.611211"/>
+</suite>
+<suite id="s1-s1-s2" name="BookStore2" source="/home/runner/work/apitest/apitest/tests/BookStore2.robot">
+<kw name="API Suite Setup" type="SETUP">
+<kw name="Login User" owner="demoqa_api">
+<msg time="2026-01-24T08:08:39.456194" level="INFO">${res} = &lt;Response [200]&gt;</msg>
+<var>${res}</var>
+<arg>${userName}</arg>
+<arg>${password}</arg>
+<doc>로그인 수행 및 UserId/Token 획득 (POST /Account/v1/Login)</doc>
+<status status="PASS" start="2026-01-24T08:08:38.521703" elapsed="0.934562"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:39.457215" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:39.456485" elapsed="0.000797"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-01-24T08:08:39.458029" level="INFO">${data} = {'userId': 'd6172cd3-6585-4365-8bb7-994120e66cf9', 'username': 'QALim', 'password': 'toolsQA!23', 'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlFBTGltIiwicGFzc3dvcmQiOiJ0b29sc1FBITI...</msg>
+<var>${data}</var>
+<arg>${res.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-01-24T08:08:39.457395" elapsed="0.000664"/>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<msg time="2026-01-24T08:08:39.458830" level="INFO">${token} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IlFBTGltIiwicGFzc3dvcmQiOiJ0b29sc1FBITIzIiwiaWF0IjoxNzY5MjQyMTE0fQ.h9E8pQy1jlsxBuWXIrdIBfd9vsxmg4hbax41HrWxG4g</msg>
+<arg>${token}</arg>
+<arg>${data['token']}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="PASS" start="2026-01-24T08:08:39.458175" elapsed="0.000704"/>
+</kw>
+<kw name="Set Global Variable" owner="BuiltIn">
+<msg time="2026-01-24T08:08:39.459598" level="INFO">${userId} = d6172cd3-6585-4365-8bb7-994120e66cf9</msg>
+<arg>${userId}</arg>
+<arg>${data['userId']}</arg>
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<status status="PASS" start="2026-01-24T08:08:39.458989" elapsed="0.000654"/>
+</kw>
+<kw name="Check Authorized" owner="demoqa_api">
+<msg time="2026-01-24T08:08:40.258267" level="INFO">${auth_res} = &lt;Response [200]&gt;</msg>
+<var>${auth_res}</var>
+<arg>${userName}</arg>
+<arg>${password}</arg>
+<doc>현재 계정의 권한 유효성 확인 (POST /Account/v1/Authorized)</doc>
+<status status="PASS" start="2026-01-24T08:08:39.459749" elapsed="0.798579"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${auth_res.text}</arg>
+<arg>true</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-01-24T08:08:40.258536" elapsed="0.000825"/>
+</kw>
+<doc>로그인하여 Token 발급 및 Authorized 상태를 확인합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:38.521501" elapsed="1.737945"/>
+</kw>
+<test id="s1-s1-s2-t1" name="TC-01" line="13">
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:40.724231" level="INFO">⚠️ WARNING: No token provided for GET Books</msg>
+<msg time="2026-01-24T08:08:40.724419" level="INFO">${res} = &lt;Response [200]&gt;</msg>
+<var>${res}</var>
+<arg>method=GET</arg>
+<arg>endpoint=Books</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:40.260262" elapsed="0.464191"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:40.725454" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:40.724660" elapsed="0.000860"/>
+</kw>
+<doc>전체 도서 목록을 조회합니다. (Public API)</doc>
+<status status="PASS" start="2026-01-24T08:08:40.259527" elapsed="0.466134"/>
+</test>
+<test id="s1-s1-s2-t2" name="TC-02" line="18">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:40.727102" level="INFO">${params} = {'ISBN': '9781449325862'}</msg>
+<var>${params}</var>
+<arg>ISBN=${VALID_ISBN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:40.726674" elapsed="0.000456"/>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:41.175355" level="INFO">⚠️ WARNING: No token provided for GET Book</msg>
+<msg time="2026-01-24T08:08:41.175536" level="INFO">${res} = &lt;Response [200]&gt;</msg>
+<var>${res}</var>
+<arg>method=GET</arg>
+<arg>endpoint=Book</arg>
+<arg>body=${params}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:40.727238" elapsed="0.448329"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:41.176486" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:41.175764" elapsed="0.000789"/>
+</kw>
+<doc>특정 ISBN의 도서 상세 정보를 조회합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:40.725941" elapsed="0.450752"/>
+</test>
+<test id="s1-s1-s2-t3" name="TC-03" line="24">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:41.178250" level="INFO">${item} = {'isbn': '9781449325862'}</msg>
+<var>${item}</var>
+<arg>isbn=${VALID_ISBN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:41.177841" elapsed="0.000437"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2026-01-24T08:08:41.178681" level="INFO">${list} = [{'isbn': '9781449325862'}]</msg>
+<var>${list}</var>
+<arg>${item}</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2026-01-24T08:08:41.178386" elapsed="0.000321"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:41.179233" level="INFO">${body} = {'userId': 'd6172cd3-6585-4365-8bb7-994120e66cf9', 'collectionOfIsbns': [{'isbn': '9781449325862'}]}</msg>
+<var>${body}</var>
+<arg>userId=${userId}</arg>
+<arg>collectionOfIsbns=${list}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:41.178832" elapsed="0.000428"/>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:41.631594" level="INFO">⚠️ WARNING: No token provided for POST Books</msg>
+<msg time="2026-01-24T08:08:41.631785" level="INFO">${res} = &lt;Response [401]&gt;</msg>
+<var>${res}</var>
+<arg>method=POST</arg>
+<arg>endpoint=Books</arg>
+<arg>body=${body}</arg>
+<arg>token=${None}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:41.179365" elapsed="0.452476"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:41.632801" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>401</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:41.632064" elapsed="0.000823"/>
+</kw>
+<doc>토큰 없이 도서 추가 시도 시 401 에러를 확인합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:41.176971" elapsed="0.456059"/>
+</test>
+<test id="s1-s1-s2-t4" name="TC-04" line="32">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:41.634520" level="INFO">${item} = {'isbn': 'INVALID_123'}</msg>
+<var>${item}</var>
+<arg>isbn=INVALID_123</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:41.634180" elapsed="0.000368"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2026-01-24T08:08:41.634968" level="INFO">${list} = [{'isbn': 'INVALID_123'}]</msg>
+<var>${list}</var>
+<arg>${item}</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2026-01-24T08:08:41.634658" elapsed="0.000337"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:41.635503" level="INFO">${body} = {'userId': 'd6172cd3-6585-4365-8bb7-994120e66cf9', 'collectionOfIsbns': [{'isbn': 'INVALID_123'}]}</msg>
+<var>${body}</var>
+<arg>userId=${userId}</arg>
+<arg>collectionOfIsbns=${list}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:41.635102" elapsed="0.000429"/>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:42.246659" level="INFO">${res} = &lt;Response [400]&gt;</msg>
+<var>${res}</var>
+<arg>method=POST</arg>
+<arg>endpoint=Books</arg>
+<arg>body=${body}</arg>
+<arg>token=${token}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:41.635636" elapsed="0.611089"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:42.247721" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>400</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:42.246974" elapsed="0.000815"/>
+</kw>
+<doc>잘못된 ISBN으로 도서 추가 시도 시 400 에러를 확인합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:41.633290" elapsed="0.614664"/>
+</test>
+<test id="s1-s1-s2-t5" name="TC-05" line="40">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:42.249512" level="INFO">${item} = {'isbn': '9781449325862'}</msg>
+<var>${item}</var>
+<arg>isbn=${VALID_ISBN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:42.249095" elapsed="0.000447"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2026-01-24T08:08:42.250002" level="INFO">${list} = [{'isbn': '9781449325862'}]</msg>
+<var>${list}</var>
+<arg>${item}</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2026-01-24T08:08:42.249654" elapsed="0.000377"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:42.250558" level="INFO">${body} = {'userId': 'd6172cd3-6585-4365-8bb7-994120e66cf9', 'collectionOfIsbns': [{'isbn': '9781449325862'}]}</msg>
+<var>${body}</var>
+<arg>userId=${userId}</arg>
+<arg>collectionOfIsbns=${list}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:42.250147" elapsed="0.000439"/>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:42.828515" level="INFO">${res} = &lt;Response [201]&gt;</msg>
+<var>${res}</var>
+<arg>method=POST</arg>
+<arg>endpoint=Books</arg>
+<arg>body=${body}</arg>
+<arg>token=${token}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:42.250695" elapsed="0.577886"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${res.status_code} == 201 or ${res.status_code} == 400</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-01-24T08:08:42.828840" elapsed="0.001437"/>
+</kw>
+<doc>정상적인 토큰과 ISBN으로 도서를 추가합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:42.248223" elapsed="0.582199"/>
+</test>
+<test id="s1-s1-s2-t6" name="TC-06" line="49">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:42.832162" level="INFO">${body} = {'userId': 'd6172cd3-6585-4365-8bb7-994120e66cf9', 'isbn': '9781449331818'}</msg>
+<var>${body}</var>
+<arg>userId=${userId}</arg>
+<arg>isbn=${NEW_ISBN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:42.831675" elapsed="0.000516"/>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:43.267073" level="INFO">⚠️ WARNING: No token provided for PUT Books/9781449325862</msg>
+<msg time="2026-01-24T08:08:43.267283" level="INFO">${res} = &lt;Response [401]&gt;</msg>
+<var>${res}</var>
+<arg>method=PUT</arg>
+<arg>endpoint=Books/${VALID_ISBN}</arg>
+<arg>body=${body}</arg>
+<arg>token=${None}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:42.832302" elapsed="0.435019"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:43.268320" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>401</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:43.267558" elapsed="0.000828"/>
+</kw>
+<doc>토큰 없이 도서 교체 시도 시 401 에러를 확인합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:42.830720" elapsed="0.437810"/>
+</test>
+<test id="s1-s1-s2-t7" name="TC-07" line="55">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:43.270287" level="INFO">${body} = {'userId': 'd6172cd3-6585-4365-8bb7-994120e66cf9', 'isbn': '9781449331818'}</msg>
+<var>${body}</var>
+<arg>userId=${userId}</arg>
+<arg>isbn=${NEW_ISBN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:43.269830" elapsed="0.000490"/>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:44.004219" level="INFO">${res} = &lt;Response [400]&gt;</msg>
+<var>${res}</var>
+<arg>method=PUT</arg>
+<arg>endpoint=Books/${INVALID_ISBN}</arg>
+<arg>body=${body}</arg>
+<arg>token=${token}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:43.270433" elapsed="0.733845"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:44.005247" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>400</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:44.004500" elapsed="0.000814"/>
+</kw>
+<doc>존재하지 않는 ISBN을 교체 대상으로 지정 시 400 에러를 확인합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:43.268790" elapsed="0.736665"/>
+</test>
+<test id="s1-s1-s2-t8" name="TC-08" line="61">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:44.006951" level="INFO">${body} = {'userId': 'd6172cd3-6585-4365-8bb7-994120e66cf9', 'isbn': '9781449331818'}</msg>
+<var>${body}</var>
+<arg>userId=${userId}</arg>
+<arg>isbn=${NEW_ISBN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:44.006451" elapsed="0.000530"/>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:44.724224" level="INFO">${res} = &lt;Response [200]&gt;</msg>
+<var>${res}</var>
+<arg>method=PUT</arg>
+<arg>endpoint=Books/${VALID_ISBN}</arg>
+<arg>body=${body}</arg>
+<arg>token=${token}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:44.007094" elapsed="0.717196"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:44.725282" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:44.724516" elapsed="0.000834"/>
+</kw>
+<doc>정상적으로 도서를 교체합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:44.005714" elapsed="0.719780"/>
+</test>
+<test id="s1-s1-s2-t9" name="TC-09" line="67">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:44.727199" level="INFO">${body} = {'isbn': '9781449331818', 'userId': 'd6172cd3-6585-4365-8bb7-994120e66cf9'}</msg>
+<var>${body}</var>
+<arg>isbn=${NEW_ISBN}</arg>
+<arg>userId=${userId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:44.726708" elapsed="0.000519"/>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:45.164093" level="INFO">⚠️ WARNING: No token provided for DELETE Book</msg>
+<msg time="2026-01-24T08:08:45.164300" level="INFO">${res} = &lt;Response [401]&gt;</msg>
+<var>${res}</var>
+<arg>method=DELETE</arg>
+<arg>endpoint=Book</arg>
+<arg>body=${body}</arg>
+<arg>token=${None}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:44.727338" elapsed="0.436993"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:45.165285" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>401</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:45.164538" elapsed="0.000815"/>
+</kw>
+<doc>토큰 없이 도서 삭제 시도 시 401 에러를 확인합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:44.725765" elapsed="0.439731"/>
+</test>
+<test id="s1-s1-s2-t10" name="TC-10" line="73">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:45.167040" level="INFO">${body} = {'isbn': 'INVALID12345', 'userId': 'd6172cd3-6585-4365-8bb7-994120e66cf9'}</msg>
+<var>${body}</var>
+<arg>isbn=${INVALID_ISBN}</arg>
+<arg>userId=${userId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:45.166541" elapsed="0.000528"/>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:45.883367" level="INFO">${res} = &lt;Response [400]&gt;</msg>
+<var>${res}</var>
+<arg>method=DELETE</arg>
+<arg>endpoint=Book</arg>
+<arg>body=${body}</arg>
+<arg>token=${token}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:45.167180" elapsed="0.716246"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:45.884383" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>400</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:45.883634" elapsed="0.000817"/>
+</kw>
+<doc>필수 정보(ISBN) 누락 시 400 에러를 확인합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:45.165755" elapsed="0.718837"/>
+</test>
+<test id="s1-s1-s2-t11" name="TC-11" line="79">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:45.886183" level="INFO">${body} = {'isbn': '9781449331818', 'userId': 'd6172cd3-6585-4365-8bb7-994120e66cf9'}</msg>
+<var>${body}</var>
+<arg>isbn=${NEW_ISBN}</arg>
+<arg>userId=${userId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:45.885681" elapsed="0.000531"/>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:46.624650" level="INFO">${res} = &lt;Response [204]&gt;</msg>
+<var>${res}</var>
+<arg>method=DELETE</arg>
+<arg>endpoint=Book</arg>
+<arg>body=${body}</arg>
+<arg>token=${token}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:45.886324" elapsed="0.738392"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:46.625773" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>204</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:46.624976" elapsed="0.000888"/>
+</kw>
+<doc>정상적으로 도서 1권을 삭제합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:45.884881" elapsed="0.741127"/>
+</test>
+<test id="s1-s1-s2-t12" name="TC-12" line="85">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-01-24T08:08:46.627618" level="INFO">${params} = {'UserId': 'd6172cd3-6585-4365-8bb7-994120e66cf9'}</msg>
+<var>${params}</var>
+<arg>UserId=${userId}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-01-24T08:08:46.627206" elapsed="0.000441"/>
+</kw>
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:47.078720" level="INFO">⚠️ WARNING: No token provided for DELETE Books</msg>
+<msg time="2026-01-24T08:08:47.078965" level="INFO">${res} = &lt;Response [401]&gt;</msg>
+<var>${res}</var>
+<arg>method=DELETE</arg>
+<arg>endpoint=Books</arg>
+<arg>body=${params}</arg>
+<arg>token=${None}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:46.627755" elapsed="0.451243"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:47.079995" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>401</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:47.079212" elapsed="0.000853"/>
+</kw>
+<doc>토큰 없이 전체 삭제 시도 시 401 에러를 확인합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:46.626262" elapsed="0.453948"/>
+</test>
+<test id="s1-s1-s2-t13" name="TC-13" line="91">
+<kw name="Book Store Api" owner="demoqa_api">
+<msg time="2026-01-24T08:08:47.597351" level="INFO">${res} = &lt;Response [204]&gt;</msg>
+<var>${res}</var>
+<arg>method=DELETE</arg>
+<arg>endpoint=Books?UserId=${userId}</arg>
+<arg>token=${token}</arg>
+<doc>도서 관련 모든 API 처리 (Books, Book)</doc>
+<status status="PASS" start="2026-01-24T08:08:47.081219" elapsed="0.516200"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\n[TC-13 DEBUG] Status: ${res.status_code}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-01-24T08:08:47.597655" elapsed="0.000837"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>[TC-13 DEBUG] Response: ${res.text}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2026-01-24T08:08:47.598644" elapsed="0.000635"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-01-24T08:08:47.599958" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${res.status_code}</arg>
+<arg>204</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-01-24T08:08:47.599400" elapsed="0.000623"/>
+</kw>
+<doc>내 서재의 모든 도서를 삭제합니다.</doc>
+<status status="PASS" start="2026-01-24T08:08:47.080484" elapsed="0.519680"/>
+</test>
+<status status="PASS" start="2026-01-24T08:08:38.517069" elapsed="9.083470"/>
+</suite>
+<status status="FAIL" start="2026-01-24T08:08:29.904220" elapsed="17.697153"/>
+</suite>
+<status status="FAIL" start="2026-01-24T08:08:29.874390" elapsed="17.727720"/>
+</suite>
+<statistics>
+<total>
+<stat pass="20" fail="4" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Apitest" id="s1" pass="20" fail="4" skip="0">Apitest</stat>
+<stat name="Tests" id="s1-s1" pass="20" fail="4" skip="0">Apitest.Tests</stat>
+<stat name="Bookstore" id="s1-s1-s1" pass="7" fail="4" skip="0">Apitest.Tests.Bookstore</stat>
+<stat name="BookStore2" id="s1-s1-s2" pass="13" fail="0" skip="0">Apitest.Tests.BookStore2</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
