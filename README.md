@@ -1,3 +1,6 @@
+## 📊 [테스트 실행 결과 리포트 보기(클릭)](https://yeongjunlim.github.io/apitest/) 
+Note: 위 링크를 통해 실제 수행된 15개 테스트 케이스의 상세 로그와 Pass/Fail 통계를 실시간으로 확인할 수 있습니다.
+
 ## 📚 DemoQA BookStore API Automation Project
 - 이 프로젝트는 Robot Framework와 Python을 활용하여 DemoQA BookStore의 주요 API 기능을 자동화하고, 다양한 HTTP 상태 코드(200, 201, 204, 400, 401)를 검증하는 포트폴리오 프로젝트입니다.
 
