@@ -1,4 +1,5 @@
-## 📚 DemoQA BookStore API Automation Project이 프로젝트는 Robot Framework와 Python을 활용하여 DemoQA BookStore의 주요 API 기능을 자동화하고, 다양한 HTTP 상태 코드(200, 201, 204, 400, 401)를 검증하는 포트폴리오 프로젝트입니다.
+## 📚 DemoQA BookStore API Automation Project
+- 이 프로젝트는 Robot Framework와 Python을 활용하여 DemoQA BookStore의 주요 API 기능을 자동화하고, 다양한 HTTP 상태 코드(200, 201, 204, 400, 401)를 검증하는 포트폴리오 프로젝트입니다.
 
 ## 🚀 주요 특징
 - API 기능별 세분화: 조회, 추가, 수정, 삭제의 성공 및 예외 케이스를 모두 포함.
