@@ -1,3 +1,5 @@
+![CI](https://github.com/YeongjunLim/apitest/actions/workflows/[워크플로우파일명].yml/badge.svg)
+
 ## 📊 [테스트 실행 결과 리포트 보기(클릭)](https://yeongjunlim.github.io/apitest/) 
 Note: 위 링크를 통해 실제 수행된 13개 테스트 케이스의 상세 로그와 Pass/Fail 통계를 실시간으로 확인할 수 있습니다.
 
@@ -71,3 +73,5 @@ robot tests/bookstore.robot
 - 401 Unauthorized: 토큰 누락 및 DemoQA의 Authorized 상태 활성화를 Suite Setup에서 해결.
 - 400 Bad Request: 서버가 요구하는 JSON 데이터 구조와 URL 쿼리 파라미터 방식의 차이점을 이해하고 반영.
 - 코드 재사용성: 하나의 파이썬 함수로 모든 HTTP 메서드를 소화할 수 있도록 라이브러리 설계 최적화.
+- 응답 스키마 검증: 단순 상태코드 확인을 넘어 응답 Body의 필드명, 타입, 필수값 여부를 검증하여 계약 기반 테스트(Contract Testing) 관점 적용.
+- 데이터 독립성: 각 테스트 케이스가 Suite Setup에서 발급된 토큰에만 의존하도록 설계하여 테스트 간 의존성 최소화.
