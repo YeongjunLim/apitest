@@ -1,5 +1,4 @@
-![CI](https://github.com/YeongjunLim/apitest/actions/workflows/[워크플로우파일명].yml/badge.svg)
-
+[![Robot Framework CI](https://github.com/YeongjunLim/apitest/actions/workflows/main.yml/badge.svg)](https://github.com/YeongjunLim/apitest/actions)
 ## 📊 [테스트 실행 결과 리포트 보기(클릭)](https://yeongjunlim.github.io/apitest/) 
 Note: 위 링크를 통해 실제 수행된 13개 테스트 케이스의 상세 로그와 Pass/Fail 통계를 실시간으로 확인할 수 있습니다.
 
